@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
   getData(): { message: string } {
-    return { message: 'Hello API' };
+    throw new BadRequestException('This is a bad request example');
+    return { message: 'Hello API' };    
   }
 }
