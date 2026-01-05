@@ -1,10 +1,14 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import {ConfigModule} from '@nestjs/config';
+import { CONFIGURATION, Tconfigutation } from '../configuration';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+    imports: [ConfigModule.forRoot({ isGlobal: true , load: [()=>CONFIGURATION]})],
+    controllers: [AppController],
+    providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+    static CONFIGURATION: Tconfigutation = CONFIGURATION;
+}
