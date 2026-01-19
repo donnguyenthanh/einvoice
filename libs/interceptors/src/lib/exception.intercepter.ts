@@ -34,8 +34,6 @@ export class ExceptionInterceptor implements NestInterceptor {
                     new ResponseDto({data:null, message,stausCode:code, duration:`${durationMs}ms`, processID:processId}),
                     code);
             }
-
         ),
-
     )}
 }
