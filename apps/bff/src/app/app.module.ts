@@ -5,7 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { CONFIGURATION, Tconfigutation } from '../configuration';
 import { LoggerMiddleware } from '@commom/middlewares/logger.middleware';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import { ExceptionInterceptor } from '@common/interceptors/exception.intercepter';
+import { ExceptionInterceptor } from '@common/interceptors/exception.interceptor';
 import { ClientsModule } from '@nestjs/microservices';
 import { TCP_SERVICE, TcpProvider } from '@common/configuration/tcp.config';
 
