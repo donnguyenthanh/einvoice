@@ -20,7 +20,7 @@ export class ExceptionInterceptor implements NestInterceptor {
         return next.handle().pipe(
             map((data: ResponseDto<unknown>) => {
                 const durationMs = Date.now() - startTime;
-                data.processID = processId;
+                data.processId = processId;
                 data.duration = `${durationMs}ms`;
                 return data;
             }),
@@ -31,7 +31,7 @@ export class ExceptionInterceptor implements NestInterceptor {
                 const code = error?.status || error?.staustCode || error?.response?.stausCode || HttpStatus.INTERNAL_SERVER_ERROR;
 
                 throw new HttpException(
-                    new ResponseDto({data:null, message,stausCode:code, duration:`${durationMs}ms`, processID:processId}),
+                    new ResponseDto({data:null, message,stausCode:code, duration:`${durationMs}ms`, processId:processId}),
                     code);
             }
         ),
