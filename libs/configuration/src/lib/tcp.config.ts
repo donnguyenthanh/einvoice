@@ -13,8 +13,21 @@ export class TcpConfiguration {
 
     constructor() {
         Object.entries(TCP_SERVICE).forEach(([key, serviceName]) => {
-            const host = process.env[`${key}_HOST`] || 'localhost';
-            const port = Number(process.env[`${serviceName}_PORT`]);
+            // Use 0.0.0.0 for server to listen on all interfaces, 127.0.0.1 for client
+            // Convert 'localhost' to '127.0.0.1' to avoid IPv6 issues
+            let host = process.env[`${key}_HOST`] || '127.0.0.1';
+            if (host === 'localhost') {
+                host = '127.0.0.1';
+            }
+            
+            const envPort = process.env[`${serviceName}_PORT`];
+            const port = envPort ? Number(envPort) : 3002;
+
+            if (Number.isNaN(port) || port <= 0 || port >= 65536) {
+                throw new Error(
+                    `Invalid TCP port for ${serviceName}. Please set ${serviceName}_PORT to a valid number (1-65535).`,
+                );
+            }
 
             this[serviceName] = TcpConfiguration.setValue(port, host);
         });
